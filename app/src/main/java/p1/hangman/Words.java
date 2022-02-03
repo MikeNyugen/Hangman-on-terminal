@@ -13,8 +13,8 @@ public class Words {
 			            "Belgium", "Luxembourg", "Switzerland", "Italy", "Greece" };
 	static String[] cities = { "St Andrews", "Edinburgh", "Glasgow", "Kirkcaldy", "Perth",
 			            "Dundee", "Stirling", "Inverness", "Aberdeen", "Falkirk" };
-	
-	static String[] states = { "Alabama" };
+	static String[] states = { "Alabama", "Florida", "California", "Hawaii", "Michigan", "Montana",
+						"Nevada", "Texas", "Oregan", "Utah", "Kentucky", "Indiana" };
 
 	static ArrayList<String> customwords;
 	
