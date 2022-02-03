@@ -9,7 +9,7 @@ public class GameState {
 	public int hintsRemaining;
 	
 	ArrayList<Integer> correctLetters;
-	ArrayList<Integer> not = new ArrayList<Integer>();
+	ArrayList<Integer> remainingLetters = new ArrayList<Integer>();
 	
 	public Scanner sc = new Scanner(System.in).useDelimiter("\n");
 	
@@ -22,7 +22,7 @@ public class GameState {
 		correctLetters = new ArrayList<Integer>();
 		
 		for (int i = 0; i < targetWord.length(); ++i) {
-			not.add(i);
+			remainingLetters.add(i);
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class GameState {
 		
 		if (userGuess.length() > 1) {
 			if (userGuess==targetWord) {
-				not.clear();
+				remainingLetters.clear();
 				return true;
 			} else return false;
 		}
@@ -57,9 +57,9 @@ public class GameState {
 			return false;
 		}
 		
-		for (int i = 0; i < not.size(); ++i) {
-			if (Character.toLowerCase(targetWord.charAt(not.get(i))) == letter) {
-				correctLetters.add(not.remove(i));
+		for (int i = 0; i < remainingLetters.size(); ++i) {
+			if (Character.toLowerCase(targetWord.charAt(remainingLetters.get(i))) == letter) {
+				correctLetters.add(remainingLetters.remove(i));
 				guessesMade++;
 				return true;
 			}
@@ -71,11 +71,11 @@ public class GameState {
 	}
 	
 	boolean won() {
-		return not.size() == 0;
+		return remainingLetters.size() == 0;
 	}
 
 	boolean lost() {
-		return not.size() > 0 && guessesRemaining == 0;
+		return remainingLetters.size() > 0 && guessesRemaining == 0;
 	}
 
 	void giveHint() {
