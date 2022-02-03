@@ -20,13 +20,13 @@ public class Words {
 	
 	public static String randomWord(int category) {
 		if (category == 1)
-			return counties[(int)(Math.random()*9)];
+			return counties[(int)(Math.random()*counties.length)];
 		if (category == 2)
-			return countries[(int)(Math.random()*15)];
+			return countries[(int)(Math.random()*countries.length)];
 		if (category == 3)
-			return cities[(int)(Math.random()*10)];
+			return cities[(int)(Math.random()*cities.length)];
 		if (category == 4)
-			return states[(int)(Math.random()*1)];
+			return states[(int)(Math.random()*states.length)];
 		return "INCORRECT CATEGORY";
 	}
 	
