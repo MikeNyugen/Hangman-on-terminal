@@ -10,9 +10,9 @@ public class CommandOptsTest {
 	public void optionsTest() {
 		String[] args = { "--guesses", "2", "--hints", "4", "words.txt" };
 		CommandOpts opts = new CommandOpts(args);
-		assertEquals(opts.maxguesses, 2);
-		assertEquals(opts.maxhints, 4);
-		assertEquals(opts.wordsource, "words.txt");
+		assertEquals(opts.maxGuesses, 2);
+		assertEquals(opts.maxHints, 4);
+		assertEquals(opts.wordSource, "words.txt");
 	}
 
 }

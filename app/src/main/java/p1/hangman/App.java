@@ -8,7 +8,7 @@ public class App {
 
 		boolean correctGuess;
 
-		if (options.wordsource == "") {
+		if (options.wordSource == "") {
 
 			System.out.print(
 					"  1. Counties\n" +
@@ -17,9 +17,9 @@ public class App {
 					"  4. States\n\n" +
 						"Pick a category");
 
-			gameState = new GameState(Words.randomWord(input.nextInt()), options.maxguesses, options.maxhints);
+			gameState = new GameState(Words.randomWord(input.nextInt()), options.maxGuesses, options.maxHints);
 		} else {
-			gameState = new GameState(Words.randomWord(options.wordsource), options.maxguesses, options.maxhints);
+			gameState = new GameState(Words.randomWord(options.wordSource), options.maxGuesses, options.maxHints);
 		}
 
 		while (!gameState.won() && !gameState.lost()) {
