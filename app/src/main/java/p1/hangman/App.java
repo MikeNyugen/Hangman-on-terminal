@@ -4,52 +4,51 @@ import java.util.Scanner;
 
 public class App {
 
-	static void doStuff(Scanner sc, CommandOpts opts, GameState g) {
+	static void doStuff(Scanner input, CommandOpts options, GameState gameState) {
 
-		boolean correct;
+		boolean correctGuess;
 
-		if (opts.wordsource == "") {
+		if (options.wordsource == "") {
 
-			System.out.println("  1. Counties");
-			System.out.println("  2. Countries");
-			System.out.println("  3. Cities");
-			System.out.println("  4. States");
+			System.out.print(
+					"  1. Counties\n" +
+					"  2. Countries\n" +
+					"  3. Cities\n" +
+					"  4. States\n\n" +
+						"Pick a category");
 
-			System.out.print("Pick a category:");
-
-			g = new GameState(Words.randomWord(sc.nextInt()), opts.maxguesses, opts.maxhints);
+			gameState = new GameState(Words.randomWord(input.nextInt()), options.maxguesses, options.maxhints);
 		} else {
-			g = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);
+			gameState = new GameState(Words.randomWord(options.wordsource), options.maxguesses, options.maxhints);
 		}
 
-		while (!g.won() && !g.lost()) {
-			g.showWord(g.word);
+		while (!gameState.won() && !gameState.lost()) {
+			gameState.showWord(gameState.word);
 
-			System.out.println("Guesses remaining: " + g.wrong);
+			System.out.println("Guesses remaining: " + gameState.wrong);
 
-			correct = g.guessLetter();
+			correctGuess = gameState.guessLetter();
 
-			if (correct) System.out.println("Good guess!");
-			if (!correct) System.out.println("Wrong guess!");
+			if (correctGuess) {
+				System.out.println("Good guess!");
+			} else {
+				System.out.println("Wrong guess!");
+			}
 		}
-
-		if (g.won()) {
-			System.out.println("Well done!");
-			System.out.println("You took " + g.g + " guesses");
+		if (gameState.won()) {
+			System.out.print("Well done!\nYou took " + gameState.g + " guesses\n");
+		} else {
+			System.out.print("You lost!\nThe word was " + gameState.word + "\n");
 		}
-		else
-			System.out.println("You lost!");
-			System.out.println("The word was " + g.word);
 	}
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		GameState g = null;
-		CommandOpts opts;
+		Scanner input = new Scanner(System.in);
+		GameState gameState = null;
+		CommandOpts options;
 
-		opts = new CommandOpts(args);
+		options = new CommandOpts(args);
 
-		doStuff(sc, opts, g);
-
+		doStuff(input, options, gameState);
 	}
 }
