@@ -23,9 +23,9 @@ public class App {
 		}
 
 		while (!gameState.won() && !gameState.lost()) {
-			gameState.showWord(gameState.word);
+			gameState.showTargetWord(gameState.targetWord);
 
-			System.out.println("Guesses remaining: " + gameState.wrong);
+			System.out.println("Guesses remaining: " + gameState.guessesRemaining);
 
 			correctGuess = gameState.guessLetter();
 
@@ -36,9 +36,9 @@ public class App {
 			}
 		}
 		if (gameState.won()) {
-			System.out.print("Well done!\nYou took " + gameState.g + " guesses\n");
+			System.out.print("Well done!\nYou took " + gameState.guessesMade + " guesses\n");
 		} else {
-			System.out.print("You lost!\nThe word was " + gameState.word + "\n");
+			System.out.print("You lost!\nThe word was " + gameState.targetWord + "\n");
 		}
 	}
 

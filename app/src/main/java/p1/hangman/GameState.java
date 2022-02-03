@@ -2,95 +2,87 @@ package p1.hangman;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-// The game state
 public class GameState {
-	public String word; // letters
-	public int g;
-	public int wrong;
-	public int h;
+	public String targetWord; 
+	public int guessesMade;
+	public int guessesRemaining;
+	public int hintsRemaining;
 	
-	ArrayList<Integer> got;
+	ArrayList<Integer> correctLetters;
 	ArrayList<Integer> not = new ArrayList<Integer>();
 	
 	public Scanner sc = new Scanner(System.in).useDelimiter("\n");
 	
-	public GameState(String target, int g, int h) {
-		this.word = target;
+	public GameState(String targetWord, int guesses, int hints) {
+		this.targetWord = targetWord;
+		this.guessesMade = 0; 
+		this.guessesRemaining = guesses; 
+		this.hintsRemaining = hints;
 
-		   got = new ArrayList<Integer>();
+		correctLetters = new ArrayList<Integer>();
 		
-		for(int i = 0; i < target.length(); ++i) {
+		for (int i = 0; i < targetWord.length(); ++i) {
 			not.add(i);
 		}
-		//System.out.println(missing);
-		
-		this.g = 0; // guesses made
-		wrong = g; // guesses remaining
-		this.h = h;
 	}
 	
-	void showWord(String word) {
-		for (int i = 0; i < word.length(); ++i) {
-			if (got.contains(i)) {
-				System.out.print(word.charAt(i));
+	void showTargetWord(String targetWord) {
+		for (int i = 0; i < targetWord.length(); ++i) {
+			if (correctLetters.contains(i)) {
+				System.out.print(targetWord.charAt(i));
 			} else {
 				System.out.print("-");
 			}
 		}
 		System.out.println("");
-		// System.out.println(missing);
 	}
 	
 	boolean guessLetter() {
-		int i;
-		char letter;
 		
 		System.out.print("Guess a letter or word (? for a hint): ");
 		
-		String str = sc.next();
+		String userGuess = sc.next();
 		
-		if (str.length() > 1) {
-			if (str==word) {
+		if (userGuess.length() > 1) {
+			if (userGuess==targetWord) {
 				not.clear();
 				return true;
 			} else return false;
 		}
 		
-		letter = str.charAt(0);
+		char letter = userGuess.charAt(0);
 		
 		if (letter == '?') {
-			hint();
+			giveHint();
 			return false;
 		}
 		
-		for(i = 0; i < not.size(); ++i) { // Loop over the not got
-			if (Character.toLowerCase(word.charAt(not.get(i))) == letter) {
-				got.add(not.remove(i));
-				g++;
+		for (int i = 0; i < not.size(); ++i) {
+			if (Character.toLowerCase(targetWord.charAt(not.get(i))) == letter) {
+				correctLetters.add(not.remove(i));
+				guessesMade++;
 				return true;
 			}
 		}
 
-		g++; // One more guess
-		wrong--;
+		guessesMade++; 
+		guessesRemaining--;
 		return false;
 	}
 	
 	boolean won() {
-		if (not.size() == 0) return true; else return false;
+		return not.size() == 0;
 	}
 
 	boolean lost() {
-		if (not.size() > 0 && wrong == 0) return true; else return false;
+		return not.size() > 0 && guessesRemaining == 0;
 	}
 
-	void hint() {
-		if (h == 0) {
+	void giveHint() {
+		if (hintsRemaining == 0) {
 			System.out.println("No more hints allowed");
 		}
-		
 		System.out.print("Try: ");
-		System.out.println(word.charAt((int)(Math.random()*word.length())));
+		System.out.println(targetWord.charAt((int)(Math.random()*targetWord.length())));
 	}
 }
