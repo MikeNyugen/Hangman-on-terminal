@@ -18,7 +18,7 @@ public class Words {
 
 	static ArrayList<String> customwords;
 	
-	public static String randomWord(int category) {
+	public static String returnRandomWord(int category) {
 		if (category == 1)
 			return counties[(int)(Math.random()*counties.length)];
 		if (category == 2)
@@ -30,7 +30,7 @@ public class Words {
 		return "INCORRECT CATEGORY";
 	}
 	
-	public static String randomWord(String wordsource) {
+	public static String returnRandomWord(String wordsource) {
 		String line;
 		customwords = new ArrayList<String>();
 		

@@ -17,9 +17,9 @@ public class App {
 					"  4. States\n\n" +
 						"Pick a category");
 
-			gameState = new GameState(Words.randomWord(input.nextInt()), options.maxGuesses, options.maxHints);
+			gameState = new GameState(Words.returnRandomWord(input.nextInt()), options.maxGuesses, options.maxHints);
 		} else {
-			gameState = new GameState(Words.randomWord(options.wordSource), options.maxGuesses, options.maxHints);
+			gameState = new GameState(Words.returnRandomWord(options.wordSource), options.maxGuesses, options.maxHints);
 		}
 
 		while (!gameState.won() && !gameState.lost()) {
