@@ -44,7 +44,7 @@ public class GameState {
 		String userGuess = sc.next();
 		
 		if (userGuess.length() > 1) {
-			if (userGuess==targetWord) {
+			if (userGuess.equals(targetWord)) {
 				remainingLetters.clear();
 				return true;
 			} else return false;
