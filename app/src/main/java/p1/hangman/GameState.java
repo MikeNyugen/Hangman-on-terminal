@@ -57,17 +57,18 @@ public class GameState {
 			return false;
 		}
 		
+		boolean flag = false;
+
 		for (int i = 0; i < remainingLetters.size(); ++i) {
 			if (Character.toLowerCase(targetWord.charAt(remainingLetters.get(i))) == letter) {
+				flag = true;
 				correctLetters.add(remainingLetters.remove(i));
-				guessesMade++;
-				return true;
 			}
 		}
 
 		guessesMade++; 
 		guessesRemaining--;
-		return false;
+		return flag;
 	}
 	
 	boolean won() {
