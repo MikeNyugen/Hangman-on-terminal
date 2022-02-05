@@ -4,9 +4,15 @@ import java.util.Scanner;
 
 public class App {
 
-	static void doStuff(Scanner input, CommandOpts options, GameState gameState) {
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		GameState gameState = null;
+		CommandOpts options = new CommandOpts(args);
+	
+		doStuff(input, options, gameState);
+	}
 
-		boolean correctGuess;
+	static void doStuff(Scanner input, CommandOpts options, GameState gameState) {
 
 		if (options.wordSource == "") {
 			printOptions();
@@ -15,24 +21,17 @@ public class App {
 				System.out.println("INCORRECT CATEGORY");
 				input.next();
 			}
-
 			gameState = new GameState(Words.returnRandomWord(input.nextInt()), options.maxGuesses, options.maxHints);
 		} else {
 			gameState = new GameState(Words.returnRandomWord(options.wordSource), options.maxGuesses, options.maxHints);
 		}
 
 		while (!gameState.won() && !gameState.lost()) {
-			gameState.showTargetWord(gameState.targetWord);
+			gameState.showTargetWord();
 
 			System.out.println("Guesses remaining: " + gameState.guessesRemaining);
 
-			correctGuess = gameState.guessLetter();
-
-			if (correctGuess) {
-				System.out.println("Good guess!");
-			} else {
-				System.out.println("Wrong guess!");
-			}
+			gameState.guess();
 		}
 		if (gameState.won()) {
 			System.out.print("Well done!\nYou took " + gameState.guessesMade + " guesses\n");
@@ -48,15 +47,5 @@ public class App {
 			"  3. Cities\n" +
 			"  4. States\n\n" +
 				"Pick a category\n");
-	}
-	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
-	
-		GameState gameState = null;
-		CommandOpts options;
-
-		options = new CommandOpts(args);
-
-		doStuff(input, options, gameState);
 	}
 }
