@@ -9,23 +9,29 @@ public class App {
 		GameState gameState = null;
 		CommandOpts options = new CommandOpts(args);
 	
-		doStuff(input, options, gameState);
+		startGame(input, options, gameState);
 	}
 
-	static void doStuff(Scanner input, CommandOpts options, GameState gameState) {
-
+	static void startGame(Scanner input, CommandOpts options, GameState gameState) {
 		if (options.wordSource == "") {
 			printOptions();
+			parseInput(input);
 			
-			while (!input.hasNextInt()) {
-				System.out.println("INCORRECT CATEGORY");
-				input.next();
-			}
 			gameState = new GameState(Words.returnRandomWord(input.nextInt()), options.maxGuesses, options.maxHints);
 		} else {
 			gameState = new GameState(Words.returnRandomWord(options.wordSource), options.maxGuesses, options.maxHints);
 		}
+		gameLoop(gameState);
+	}
 
+	public static void parseInput(Scanner input) {
+		while (!input.hasNextInt()) {
+			System.out.println("INCORRECT CATEGORY");
+			input.next();
+		}
+	}
+
+	public static void gameLoop(GameState gameState) {
 		while (!gameState.won() && !gameState.lost()) {
 			gameState.showTargetWord();
 
@@ -39,7 +45,7 @@ public class App {
 			System.out.print("You lost!\nThe word was " + gameState.targetWord + "\n");
 		}
 	}
-
+	
 	public static void printOptions() {
 		System.out.print(
 			"  1. Counties\n" +

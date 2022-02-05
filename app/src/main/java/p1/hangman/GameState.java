@@ -28,7 +28,7 @@ public class GameState {
 		}
 	}
 
-	void showTargetWord() {
+	public void showTargetWord() {
 		for (int i = 0; i < targetWord.length(); ++i) {
 			if (correctLetters.contains(i)) {
 				System.out.print(targetWord.charAt(i));
@@ -39,7 +39,7 @@ public class GameState {
 		System.out.println("");
 	}
 
-	void guess() {
+	public void guess() {
 		System.out.print("Guess a letter or word (? for a hint): ");
 
 		String userGuess = sc.next();
@@ -50,26 +50,47 @@ public class GameState {
 			giveHint();
 		} else if (userGuess.length() > 1) {
 			if (userGuess.equals(targetWord)) {
-				guessCorrect = true;
-				remainingLetters.clear();
-				printFeedback(guessCorrect);
-				guessesMade++;
-				guessesRemaining--;
+				guessWord(userGuess, guessCorrect);
 			}
 		} else {
-			for (int i = 0; i < remainingLetters.size(); ++i) {
-				if (Character.toLowerCase(targetWord.charAt(remainingLetters.get(i))) == letter) {
-					guessCorrect = true;
-					correctLetters.add(remainingLetters.remove(i));
-				}
-			}
-			printFeedback(guessCorrect);
-			guessesMade++;
-			guessesRemaining--;
+			guessLetter(letter, guessCorrect);
 		}
 	}
 
-	void printFeedback(boolean guessCorrect) {
+	private void guessWord(String userGuess, boolean guessCorrect) {
+		if (userGuess.equals(targetWord)) {
+			guessCorrect = true;
+			printFeedback(guessCorrect);
+			updateGuesses();
+		}
+	}
+
+	private void guessLetter(char letter, boolean guessCorrect) {
+		for (int i = 0; i < remainingLetters.size(); ++i) {
+			if (Character.toLowerCase(targetWord.charAt(remainingLetters.get(i))) == letter) {
+				guessCorrect = true;
+				correctLetters.add(remainingLetters.remove(i));
+			}
+		}
+		printFeedback(guessCorrect);
+		updateGuesses();
+	}
+
+	private void giveHint() {
+		if (hintsRemaining == 0) {
+			System.out.println("No more hints allowed");
+		} else {
+			System.out.println("Try: " + targetWord.charAt((int) (Math.random() * targetWord.length())));
+			hintsRemaining--;
+		}
+	}
+
+	private void updateGuesses() {
+		guessesMade++;
+		guessesRemaining--;
+	}
+
+	private void printFeedback(boolean guessCorrect) {
 		if (guessCorrect) {
 			System.out.println("Good guess!");
 		} else {
@@ -77,20 +98,11 @@ public class GameState {
 		}
 	}
 
-	boolean won() {
+	public boolean won() {
 		return remainingLetters.size() == 0;
 	}
 
-	boolean lost() {
+	public boolean lost() {
 		return remainingLetters.size() > 0 && guessesRemaining == 0;
-	}
-
-	void giveHint() {
-		if (hintsRemaining == 0) {
-			System.out.println("No more hints allowed");
-		} else {
-			System.out.println("Try: " + targetWord.charAt((int) (Math.random() * targetWord.length())));
-			hintsRemaining--;
-		}
 	}
 }
