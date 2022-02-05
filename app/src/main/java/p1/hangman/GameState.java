@@ -65,7 +65,6 @@ public class GameState {
 				correctLetters.add(remainingLetters.remove(i));
 			}
 		}
-
 		guessesMade++; 
 		guessesRemaining--;
 		return flag;

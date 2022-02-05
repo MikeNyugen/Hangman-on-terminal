@@ -9,13 +9,12 @@ public class App {
 		boolean correctGuess;
 
 		if (options.wordSource == "") {
-
-			System.out.print(
-					"  1. Counties\n" +
-					"  2. Countries\n" +
-					"  3. Cities\n" +
-					"  4. States\n\n" +
-						"Pick a category");
+			printOptions();
+			
+			while (!input.hasNextInt()) {
+				System.out.println("INCORRECT CATEGORY");
+				input.next();
+			}
 
 			gameState = new GameState(Words.returnRandomWord(input.nextInt()), options.maxGuesses, options.maxHints);
 		} else {
@@ -42,8 +41,17 @@ public class App {
 		}
 	}
 
+	public static void printOptions() {
+		System.out.print(
+			"  1. Counties\n" +
+			"  2. Countries\n" +
+			"  3. Cities\n" +
+			"  4. States\n\n" +
+				"Pick a category\n");
+	}
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
+	
 		GameState gameState = null;
 		CommandOpts options;
 
