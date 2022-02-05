@@ -70,6 +70,7 @@ public class GameState {
 		guessesRemaining--;
 		return flag;
 	}
+
 	
 	boolean won() {
 		return remainingLetters.size() == 0;
@@ -82,8 +83,10 @@ public class GameState {
 	void giveHint() {
 		if (hintsRemaining == 0) {
 			System.out.println("No more hints allowed");
+		} else {
+			System.out.print("Try: ");
+			System.out.println(targetWord.charAt((int)(Math.random()*targetWord.length())));
+			hintsRemaining--;	
 		}
-		System.out.print("Try: ");
-		System.out.println(targetWord.charAt((int)(Math.random()*targetWord.length())));
 	}
 }
