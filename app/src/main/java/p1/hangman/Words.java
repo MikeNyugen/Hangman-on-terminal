@@ -15,6 +15,7 @@ public class Words {
 			            "Dundee", "Stirling", "Inverness", "Aberdeen", "Falkirk" };
 	static String[] states = { "Alabama", "Florida", "California", "Hawaii", "Michigan", "Montana",
 						"Nevada", "Texas", "Oregan", "Utah", "Kentucky", "Indiana" };
+						
 	static ArrayList<String> customwords;
 	
 	public static String returnRandomWord(int category) {
