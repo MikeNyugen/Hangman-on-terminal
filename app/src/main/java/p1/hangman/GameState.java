@@ -23,7 +23,7 @@ public class GameState {
 
 		correctLetters = new ArrayList<Integer>();
 		remainingLetters = new ArrayList<Integer>();
-		hintsGiven = new ArrayList<>();
+		hintsGiven = new ArrayList<Character>();
 
 		for (int i = 0; i < targetWord.length(); ++i) {
 			remainingLetters.add(i);
@@ -77,7 +77,7 @@ public class GameState {
 			guessCorrect = true;
 		}
 		printFeedback(guessCorrect);
-		updateGuesses();
+		updateGuesses(guessCorrect);
 	}
 
 	private void guessLetter(char letter, boolean guessCorrect) {	
@@ -86,15 +86,16 @@ public class GameState {
 				guessCorrect = true;
 				correctLetters.add(remainingLetters.remove(i));
 			}
-			
 		}
 		printFeedback(guessCorrect);
-		updateGuesses();
+		updateGuesses(guessCorrect);
 	}
 
-	private void updateGuesses() {
-		guessesMade++;
-		guessesRemaining--;
+	private void updateGuesses(boolean guessCorrect) {
+		if (!guessCorrect) {
+			guessesMade++;
+			guessesRemaining--;
+		}
 	}
 
 	private void printFeedback(boolean guessCorrect) {
