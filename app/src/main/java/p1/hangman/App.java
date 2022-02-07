@@ -14,30 +14,40 @@ public class App {
 
 	static void startGame(Scanner input, CommandOpts options, GameState gameState) {
 		printOptions();
-		parseInput(input);
-		if (options.wordSource == "") {
-			gameState = new GameState(Words.returnRandomWord(input.nextInt()), options.maxGuesses, options.maxHints);
+		if (options.wordSource == "") {			
+			int userInput = returnValidInput(input);
+			gameState = new GameState(Words.returnRandomWord(userInput), options.maxGuesses, options.maxHints);
 		} else {
 			gameState = new GameState(Words.returnRandomWord(options.wordSource), options.maxGuesses, options.maxHints);
 		}
 		gameLoop(gameState);
 	}
 
-	public static void printOptions() {
-		System.out.print(
-			"  1. Counties\n" +
-			"  2. Countries\n" +
-			"  3. Cities\n" +
-			"  4. States\n\n" +
-				"Pick a category\n");
+	public static int returnValidInput(Scanner input) {
+		int userInput;
+		try {
+			userInput = input.nextInt();
+			while (Words.returnRandomWord(userInput).equals("INCORRECT CATEGORY")) {
+				System.out.println("INCORRECT CATEGORY");
+				userInput = input.nextInt();
+			}
+		} catch (Exception e) {
+			System.out.println("INCORRECT CATEGORY");
+			input.nextLine();
+			userInput = returnValidInput(input);
+		}
+		return userInput;
 	}
 
-	public static void parseInput(Scanner input) {
-		while (!input.hasNextInt()) {
-			System.out.println("INCORRECT CATEGORY");
-			input.next();
-		}
+	public static void printOptions() {
+		System.out.print(
+				"  1. Counties\n" +
+						"  2. Countries\n" +
+						"  3. Cities\n" +
+						"  4. States\n\n" +
+						"Pick a category\n");
 	}
+
 	public static void gameLoop(GameState gameState) {
 		while (!gameState.won() && !gameState.lost()) {
 			gameState.showTargetWord();
