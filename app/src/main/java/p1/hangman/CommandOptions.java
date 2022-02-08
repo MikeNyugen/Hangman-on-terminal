@@ -4,15 +4,17 @@ public class CommandOptions {
 
 	private int maxGuesses;
 	private int maxHints;
-	
-	String wordSource;
+	private String wordSource;
 	
 	CommandOptions(String[] args) {
 		this.setMaxGuesses(10);
 		this.setMaxHints(2);
+		this.setWordSource("");
 		
-		wordSource = "";
-		
+		processArguments(args);
+	}
+
+	private void processArguments(String[] args) {
 		for (int i = 0; i < args.length; ++i) {
 			if (args[i].equals("--guesses")) {
 				maxGuesses = Integer.parseInt(args[i+1]);
@@ -42,4 +44,12 @@ public class CommandOptions {
 		this.maxHints = maxHints;
 	}
 
+	public String getWordSource() {
+		return wordSource;
+	}
+
+	public void setWordSource(String wordSource) {
+		this.wordSource = wordSource;
+	}
+	
 }

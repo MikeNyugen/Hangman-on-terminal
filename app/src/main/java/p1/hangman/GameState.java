@@ -41,7 +41,7 @@ public class GameState {
 		System.out.println();
 	}
 
-	public void guess() {
+	public void getGuess() {
 		System.out.print("Guess a letter or word (? for a hint): ");
 
 		String userGuess = sc.nextLine();

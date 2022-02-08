@@ -15,12 +15,13 @@ public class App {
 		GameState gameState;
 		int maxGuesses = options.getMaxGuesses();
 		int maxHints = options.getMaxHints();
-		if (options.wordSource.equals("")) {
+		String wordSource = options.getWordSource();
+		if (wordSource.equals("")) {
 			int userInput = returnValidInput(input);
 			
 			gameState = new GameState(Words.returnRandomWord(userInput), maxGuesses, maxHints);
 		} else {
-			gameState = new GameState(Words.returnRandomWord(options.wordSource), maxGuesses, maxHints);
+			gameState = new GameState(Words.returnRandomWord(wordSource), maxGuesses, maxHints);
 		}
 		gameLoop(gameState);
 	}
@@ -57,7 +58,7 @@ public class App {
 		while (!gameState.won() && !gameState.lost()) {
 			gameState.showTargetWord();
 			System.out.println("Guesses remaining: " + gameState.guessesRemaining);
-			gameState.guess();
+			gameState.getGuess();
 		}
 		if (gameState.won()) {
 			System.out.print("Well done!\nYou took " + gameState.guessesMade + " guesses\n");

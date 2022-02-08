@@ -12,6 +12,6 @@ public class CommandOptionsTest {
 		CommandOptions opts = new CommandOptions(args);
 		assertEquals(opts.getMaxGuesses(), 2);
 		assertEquals(opts.getMaxHints(), 4);
-		assertEquals(opts.wordSource, "words.txt");
+		assertEquals(opts.getWordSource(), "words.txt");
 	}
 }
