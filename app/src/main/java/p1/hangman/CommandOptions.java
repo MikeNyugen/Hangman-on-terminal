@@ -1,55 +1,68 @@
 package p1.hangman;
 
+/**
+ * Handles the command line arguments.
+ */
 public class CommandOptions {
 
-    private int maxGuesses;
-    private int maxHints;
-    private String wordSource;
-    
-    CommandOptions(String[] args) {
-        this.setMaxGuesses(10);
-        this.setMaxHints(2);
-        this.setWordSource("");
-        
-        processArguments(args);
-    }
+  private int maxGuesses;
+  private int maxHints;
+  private String wordSource;
 
-    private void processArguments(String[] args) {
-        for (int i = 0; i < args.length; ++i) {
-            if (args[i].equals("--guesses")) {
-                maxGuesses = Integer.parseInt(args[i+1]);
-                i++;
-            }
-            else if (args[i].equals("--hints")) {
-                maxHints = Integer.parseInt(args[i+1]);
-                i++;
-            }
-            else wordSource = args[i];
-        }
-    }
+  CommandOptions(String[] args) {
+    this.setMaxGuesses(10);
+    this.setMaxHints(2);
+    this.setWordSource("");
 
-    public int getMaxGuesses() {
-        return maxGuesses;
-    }
+    processArguments(args);
+  }
 
-    private void setMaxGuesses(int maxGuesses) {
-        this.maxGuesses = maxGuesses;
+  /**
+   * Processes command line arguments from the user.
+   * The user can modify the maximum number of hints and guesses.
+   * The user can also specify a file containing custom words.
+   * Arguments should be in the format:
+   * --guesses integer --hints integer wordSource
+   * Default values will be used if no arguments specified
+   *
+   * @param args  the commmand line arguments
+   */
+  private void processArguments(String[] args) {
+    for (int i = 0; i < args.length; ++i) {
+      if (args[i].equals("--guesses")) {
+        maxGuesses = Integer.parseInt(args[i + 1]);
+        i++;
+      } else if (args[i].equals("--hints")) {
+        maxHints = Integer.parseInt(args[i + 1]);
+        i++;
+      } else {
+        wordSource = args[i];
+      }
     }
+  }
 
-    public int getMaxHints() {
-        return maxHints;
-    }
+  public int getMaxGuesses() {
+    return maxGuesses;
+  }
 
-    private void setMaxHints(int maxHints) {
-        this.maxHints = maxHints;
-    }
+  private void setMaxGuesses(int maxGuesses) {
+    this.maxGuesses = maxGuesses;
+  }
 
-    public String getWordSource() {
-        return wordSource;
-    }
+  public int getMaxHints() {
+    return maxHints;
+  }
 
-    public void setWordSource(String wordSource) {
-        this.wordSource = wordSource;
-    }
-    
+  private void setMaxHints(int maxHints) {
+    this.maxHints = maxHints;
+  }
+
+  public String getWordSource() {
+    return wordSource;
+  }
+
+  public void setWordSource(String wordSource) {
+    this.wordSource = wordSource;
+  }
+
 }

@@ -1,4 +1,0 @@
-/Users/mikenguyen/p1-hangman/app/build/classes/java/main/p1/hangman/Words.class
-/Users/mikenguyen/p1-hangman/app/build/classes/java/main/p1/hangman/CommandOptions.class
-/Users/mikenguyen/p1-hangman/app/build/classes/java/main/p1/hangman/GameState.class
-/Users/mikenguyen/p1-hangman/app/build/classes/java/main/p1/hangman/App.class

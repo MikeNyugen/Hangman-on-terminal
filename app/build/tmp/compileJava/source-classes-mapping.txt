@@ -1,5 +1,5 @@
-p1/hangman/CommandOpts.java
- p1.hangman.CommandOpts
+p1/hangman/CommandOptions.java
+ p1.hangman.CommandOptions
 p1/hangman/Words.java
  p1.hangman.Words
 p1/hangman/GameState.java

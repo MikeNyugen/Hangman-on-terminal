@@ -1,2 +1,0 @@
-/Users/mikenguyen/p1-hangman/app/build/classes/java/test/p1/hangman/CommandOptionsTest.class
-/Users/mikenguyen/p1-hangman/app/build/classes/java/test/p1/hangman/GameStateTest.class
