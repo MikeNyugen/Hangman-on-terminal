@@ -6,11 +6,11 @@ public class App {
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-		CommandOpts options = new CommandOpts(args);
+		CommandOptions options = new CommandOptions(args);
 		startGame(input, options);
 	}
 
-	static void startGame(Scanner input, CommandOpts options) {
+	static void startGame(Scanner input, CommandOptions options) {
 		printOptions();
 		GameState gameState;
 		int maxGuesses = options.getMaxGuesses();

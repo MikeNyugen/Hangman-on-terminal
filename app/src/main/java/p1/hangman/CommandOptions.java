@@ -1,13 +1,13 @@
 package p1.hangman;
 
-public class CommandOpts {
+public class CommandOptions {
 
 	private int maxGuesses;
 	private int maxHints;
 	
 	String wordSource;
 	
-	CommandOpts(String[] args) {
+	CommandOptions(String[] args) {
 		this.setMaxGuesses(10);
 		this.setMaxHints(2);
 		
