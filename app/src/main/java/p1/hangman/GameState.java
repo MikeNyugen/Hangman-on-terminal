@@ -92,10 +92,8 @@ public class GameState {
 	}
 
 	private void updateGuesses(boolean guessCorrect) {
-		if (!guessCorrect) {
-			guessesMade++;
-			guessesRemaining--;
-		}
+		guessesMade++;
+		guessesRemaining--;
 	}
 
 	private void printFeedback(boolean guessCorrect) {
