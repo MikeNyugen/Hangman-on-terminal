@@ -2,14 +2,14 @@ package p1.hangman;
 
 public class CommandOpts {
 
-	public int maxGuesses;
-	public int maxHints;
+	private int maxGuesses;
+	private int maxHints;
 	
 	String wordSource;
 	
 	CommandOpts(String[] args) {
-		maxGuesses = 10;
-		maxHints = 2;
+		this.setMaxGuesses(10);
+		this.setMaxHints(2);
 		
 		wordSource = "";
 		
@@ -25,4 +25,21 @@ public class CommandOpts {
 			else wordSource = args[i];
 		}
 	}
+
+	public int getMaxGuesses() {
+		return maxGuesses;
+	}
+
+	private void setMaxGuesses(int maxGuesses) {
+		this.maxGuesses = maxGuesses;
+	}
+
+	public int getMaxHints() {
+		return maxHints;
+	}
+
+	private void setMaxHints(int maxHints) {
+		this.maxHints = maxHints;
+	}
+
 }

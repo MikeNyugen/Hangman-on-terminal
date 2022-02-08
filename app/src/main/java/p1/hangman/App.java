@@ -7,20 +7,34 @@ public class App {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		CommandOpts options = new CommandOpts(args);
-
 		startGame(input, options);
 	}
 
 	static void startGame(Scanner input, CommandOpts options) {
 		printOptions();
 		GameState gameState;
+		int maxGuesses = options.getMaxGuesses();
+		int maxHints = options.getMaxHints();
 		if (options.wordSource.equals("")) {
 			int userInput = returnValidInput(input);
-			gameState = new GameState(Words.returnRandomWord(userInput), options.maxGuesses, options.maxHints);
+			
+			gameState = new GameState(Words.returnRandomWord(userInput), maxGuesses, maxHints);
 		} else {
-			gameState = new GameState(Words.returnRandomWord(options.wordSource), options.maxGuesses, options.maxHints);
+			gameState = new GameState(Words.returnRandomWord(options.wordSource), maxGuesses, maxHints);
 		}
 		gameLoop(gameState);
+	}
+
+	public static void printOptions() {
+		System.out.print(
+				"""
+						  1. Counties
+						  2. Countries
+						  3. Cities
+						  4. States
+
+						Pick a category
+						""");
 	}
 
 	public static int returnValidInput(Scanner input) {
@@ -39,24 +53,10 @@ public class App {
 		return userInput;
 	}
 
-	public static void printOptions() {
-		System.out.print(
-				"""
-						  1. Counties
-						  2. Countries
-						  3. Cities
-						  4. States
-
-						Pick a category
-						""");
-	}
-
 	public static void gameLoop(GameState gameState) {
 		while (!gameState.won() && !gameState.lost()) {
 			gameState.showTargetWord();
-
 			System.out.println("Guesses remaining: " + gameState.guessesRemaining);
-
 			gameState.guess();
 		}
 		if (gameState.won()) {

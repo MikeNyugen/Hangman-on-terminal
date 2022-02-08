@@ -16,7 +16,7 @@ public class Words {
 	static String[] states = { "Alabama", "Florida", "California", "Hawaii", "Michigan", "Montana",
 						"Nevada", "Texas", "Oregan", "Utah", "Kentucky", "Indiana" };
 						
-	static ArrayList<String> customwords;
+	static ArrayList<String> customWords;
 	
 	public static String returnRandomWord(int category) {
 		if (category == 1)
@@ -30,17 +30,18 @@ public class Words {
 		return "INCORRECT CATEGORY";
 	}
 	
-	public static String returnRandomWord(String wordsource) {
+	public static String returnRandomWord(String wordSource) {
 		String line;
-		customwords = new ArrayList<String>();
+		customWords = new ArrayList<String>();
 		
 		try {
-			FileReader file = new FileReader(wordsource);
+			FileReader file = new FileReader(wordSource);
 			BufferedReader reader = new BufferedReader(file);
 			while((line = reader.readLine()) != null) {
-                customwords.add(line);
+                customWords.add(line);
             }
-			return customwords.get((int)(Math.random()*customwords.size()));
+			reader.close();
+			return customWords.get((int)(Math.random()*customWords.size()));
 		} catch(FileNotFoundException e) {
 			System.out.println("File error");
 			return "FILE ERROR";
