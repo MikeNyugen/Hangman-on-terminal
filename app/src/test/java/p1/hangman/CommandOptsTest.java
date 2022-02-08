@@ -14,5 +14,4 @@ public class CommandOptsTest {
 		assertEquals(opts.maxHints, 4);
 		assertEquals(opts.wordSource, "words.txt");
 	}
-
 }

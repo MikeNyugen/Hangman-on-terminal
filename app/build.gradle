@@ -22,6 +22,17 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
+
+}
+test { // https://docs.gradle.org/5.2.1/userguide/java_testing.html#using_junit5 
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+}
+
+// ensure that Javadoc does not fail our build
+tasks.withType(Javadoc) {
+	options.addStringOption('Xdoclint:none', '-quiet')
 }
 
 application {

@@ -1,0 +1,4 @@
+p1/hangman/CommandOptsTest.java
+ p1.hangman.CommandOptsTest
+p1/hangman/GameStateTest.java
+ p1.hangman.GameStateTest

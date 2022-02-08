@@ -6,15 +6,15 @@ public class App {
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
-		GameState gameState = null;
 		CommandOpts options = new CommandOpts(args);
 
-		startGame(input, options, gameState);
+		startGame(input, options);
 	}
 
-	static void startGame(Scanner input, CommandOpts options, GameState gameState) {
+	static void startGame(Scanner input, CommandOpts options) {
 		printOptions();
-		if (options.wordSource == "") {			
+		GameState gameState;
+		if (options.wordSource.equals("")) {
 			int userInput = returnValidInput(input);
 			gameState = new GameState(Words.returnRandomWord(userInput), options.maxGuesses, options.maxHints);
 		} else {
@@ -41,11 +41,14 @@ public class App {
 
 	public static void printOptions() {
 		System.out.print(
-				"  1. Counties\n" +
-						"  2. Countries\n" +
-						"  3. Cities\n" +
-						"  4. States\n\n" +
-						"Pick a category\n");
+				"""
+						  1. Counties
+						  2. Countries
+						  3. Cities
+						  4. States
+
+						Pick a category
+						""");
 	}
 
 	public static void gameLoop(GameState gameState) {
