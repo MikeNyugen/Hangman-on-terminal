@@ -1,5 +1,6 @@
 package p1.hangman;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Scanner;
 public class App {
 
   public static void main(String[] args) {
-    Scanner input = new Scanner(System.in);
+    Scanner input = new Scanner(System.in, StandardCharsets.UTF_8);
     CommandOptions options = new CommandOptions(args);
     startGame(input, options);
   }

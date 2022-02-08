@@ -1,5 +1,6 @@
 package p1.hangman;
 
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

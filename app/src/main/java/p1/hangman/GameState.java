@@ -1,5 +1,6 @@
 package p1.hangman;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class GameState {
   int remainingLetters;
   ArrayList<Character> hintsGiven;
 
-  public Scanner sc = new Scanner(System.in).useDelimiter("\n");
+  public Scanner sc = new Scanner(System.in, StandardCharsets.UTF_8).useDelimiter("\n");
 
   public GameState(String targetWord, int guessesRemaining, int hintsRemaining) {
     this.targetWord = targetWord;
