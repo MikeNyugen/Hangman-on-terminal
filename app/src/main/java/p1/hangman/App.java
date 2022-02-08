@@ -61,7 +61,8 @@ public class App {
 			gameState.getGuess();
 		}
 		if (gameState.won()) {
-			System.out.print("Well done!\nYou took " + gameState.guessesMade + " guesses\n");
+			System.out.print("Well done!\nYou took " + gameState.guessesMade + " guess(es)\n");
+			System.out.println("The word was " + gameState.getTargetWord());
 		} else {
 			System.out.print("You lost!\nThe word was " + gameState.targetWord + "\n");
 		}

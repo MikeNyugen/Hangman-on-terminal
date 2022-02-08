@@ -9,8 +9,8 @@ public class GameState {
 	public int guessesRemaining;
 	public int hintsRemaining;
 
-	ArrayList<Integer> correctLetters;
-	ArrayList<Integer> remainingLetters;
+	ArrayList<Character> correctLetters;
+	int remainingLetters;
 	ArrayList<Character> hintsGiven;
 
 	public Scanner sc = new Scanner(System.in).useDelimiter("\n");
@@ -21,24 +21,21 @@ public class GameState {
 		this.guessesRemaining = guesses;
 		this.hintsRemaining = hints;
 
-		correctLetters = new ArrayList<Integer>();
-		remainingLetters = new ArrayList<Integer>();
+		remainingLetters = targetWord.length();
+		correctLetters = new ArrayList<Character>();
 		hintsGiven = new ArrayList<Character>();
-
-		for (int i = 0; i < targetWord.length(); ++i) {
-			remainingLetters.add(i);
-		}
 	}
 
 	public void showTargetWord() {
-		for (int i = 0; i < targetWord.length(); ++i) {
-			if (correctLetters.contains(i)) {
-				System.out.print(targetWord.charAt(i));
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < targetWord.length(); i++) {
+			if (correctLetters.contains(Character.toLowerCase(targetWord.charAt(i)))) {
+				sb.append(targetWord.charAt(i));
 			} else {
-				System.out.print("-");
+				sb.append('-');
 			}
 		}
-		System.out.println();
+		System.out.println(sb.toString());
 	}
 
 	public void getGuess() {
@@ -56,14 +53,14 @@ public class GameState {
 			guessLetter(letter, guessCorrect);
 		}
 	}
-	
+
 	private void giveHint() {
 		if (hintsRemaining == 0) {
 			System.out.println("No more hints allowed");
 		} else {
-			char hint =  Character.toLowerCase(targetWord.charAt((int) (Math.random() * targetWord.length())));
-			while (hintsGiven.contains(hint)) {
-				 hint = targetWord.charAt((int) (Math.random() * targetWord.length()));
+			char hint = Character.toLowerCase(targetWord.charAt((int) (Math.random() * targetWord.length())));
+			while (hintsGiven.contains(hint) || correctLetters.contains(hint)) {
+				hint = targetWord.charAt((int) (Math.random() * targetWord.length()));
 			}
 			System.out.println("Try: " + hint);
 			hintsGiven.add(hint);
@@ -73,22 +70,40 @@ public class GameState {
 
 	private void guessWord(String userGuess, boolean guessCorrect) {
 		if (userGuess.equalsIgnoreCase(targetWord)) {
-			remainingLetters.clear();
+			remainingLetters = 0;
 			guessCorrect = true;
 		}
 		printFeedback(guessCorrect);
 		updateGuesses(guessCorrect);
 	}
 
-	private void guessLetter(char letter, boolean guessCorrect) {	
-		for (int i = 0; i < remainingLetters.size(); i++) {
-			if (Character.toLowerCase(targetWord.charAt(remainingLetters.get(i))) == letter) {
+	public void guessLetter(char letter, boolean guessCorrect) {
+		for (int i = 0; i < targetWord.length(); i++) {
+			if (Character.toLowerCase(targetWord.charAt(i)) == letter && !correctLetters.contains(letter)) {
+				System.out.println(i);
+				ArrayList<Integer> occurrences = findOccurrences(letter, targetWord);
 				guessCorrect = true;
-				correctLetters.add(remainingLetters.remove(i));
+				correctLetters.add(letter);
+				System.out.println(correctLetters.get(0));
+				for (int j = 0; j < occurrences.size(); j++) {
+					remainingLetters--;
+				}
 			}
 		}
 		printFeedback(guessCorrect);
 		updateGuesses(guessCorrect);
+	}
+
+	public ArrayList<Integer> findOccurrences(char letter, String targetWord) {
+		ArrayList<Integer> output = new ArrayList<>();
+		String lowerCaseWord = targetWord.toLowerCase();
+		int index = lowerCaseWord.indexOf(letter);
+
+		while (index >= 0) {
+			output.add(index);
+			index = targetWord.indexOf(letter, index + 1);
+		}
+		return output;
 	}
 
 	private void updateGuesses(boolean guessCorrect) {
@@ -105,10 +120,14 @@ public class GameState {
 	}
 
 	public boolean won() {
-		return remainingLetters.size() == 0;
+		return remainingLetters == 0;
 	}
 
 	public boolean lost() {
-		return remainingLetters.size() > 0 && guessesRemaining == 0;
+		return remainingLetters > 0 && guessesRemaining == 0;
+	}
+
+	public String getTargetWord() {
+		return targetWord;
 	}
 }
