@@ -25,14 +25,14 @@ public class GameOutput {
   }
 
   public void printMenuOptions() {
-    output.print("""
-              1. Counties
-              2. Countries
-              3. Cities
-              4. States
+    output.println(
+              "1. Counties\n" +
+              "2. Countries\n" +
+              "3. Cities\n" +
+              "4. States\n" +
 
-            Pick a category
-            """);
+            "Pick a category: "
+            );
   }
 
   public void printPrompt() {
@@ -42,11 +42,7 @@ public class GameOutput {
   public void printBlankInput() {
     output.println("Please enter a guess: ");
   }
-
-  public void printIncorrect() {
-    output.println("INCORRECT CATEGORY");
-  }
-
+  
   /**
    * Displays the word that the user has to guess.
    */

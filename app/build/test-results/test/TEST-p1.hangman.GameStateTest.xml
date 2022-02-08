@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="p1.hangman.GameStateTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-02-08T17:27:52" hostname="8afbdf84.st-andrews.ac.uk" time="0.012">
+<testsuite name="p1.hangman.GameStateTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-02-08T19:50:29" hostname="8afbdf84.st-andrews.ac.uk" time="0.001">
   <properties/>
-  <testcase name="guessWordTest" classname="p1.hangman.GameStateTest" time="0.002"/>
+  <testcase name="guessWordTest" classname="p1.hangman.GameStateTest" time="0.0"/>
   <testcase name="getGuessTest" classname="p1.hangman.GameStateTest" time="0.0"/>
-  <testcase name="giveHintTest" classname="p1.hangman.GameStateTest" time="0.01"/>
+  <testcase name="giveHintTest" classname="p1.hangman.GameStateTest" time="0.0"/>
   <testcase name="test" classname="p1.hangman.GameStateTest" time="0.0"/>
-  <system-out><![CDATA[Try: a
-]]></system-out>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

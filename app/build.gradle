@@ -10,7 +10,6 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'checkstyle'
-    id "com.github.spotbugs" version "5.0.5"
 }
 
 checkstyle {
@@ -26,10 +25,6 @@ checkstyleTest {
     source ='src/test/java'
 }
 
-spotbugs {
-  toolVersion = '4.5.3'
-}
-
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
@@ -39,13 +34,9 @@ dependencies {
     // Use JUnit test framework.
     testImplementation 'junit:junit:4.13'
     // use Mockito test framework.
-    testImplementation "org.mockito:mockito-core:3.+"
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
-
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0'
-
 }
 test { // https://docs.gradle.org/5.2.1/userguide/java_testing.html#using_junit5 
     testLogging {
