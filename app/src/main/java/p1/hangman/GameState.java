@@ -39,19 +39,27 @@ public class GameState {
     }
 
     public void getGuess() {
+        String userGuess;
+        
         System.out.print("Guess a letter or word (? for a hint): ");
-
-        String userGuess = sc.nextLine();
-        char letter = Character.toLowerCase(userGuess.charAt(0));
-        boolean guessCorrect = false;
-
-        if (userGuess.length() > 1) {
-            guessWord(userGuess, guessCorrect);
-        } else if (letter == '?') {
-            giveHint();
+        
+        userGuess = sc.nextLine();
+        if (userGuess.isBlank()) {
+            System.out.println("Please enter a guess: ");
         } else {
-            guessLetter(letter, guessCorrect);
+            char letter = Character.toLowerCase(userGuess.charAt(0));
+            boolean guessCorrect = false;
+    
+            if (userGuess.length() > 1) {
+                guessWord(userGuess, guessCorrect);
+            } else if (letter == '?') {
+                giveHint();
+            } else {
+                guessLetter(letter, guessCorrect);
+            }
         }
+            
+        
     }
 
     private void giveHint() {
