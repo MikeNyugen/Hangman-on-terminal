@@ -23,11 +23,14 @@ public class Words {
 
   static final String[] CITIES = {"St Andrews", "Edinburgh", "Glasgow", "Kirkcaldy", "Perth",
       "Dundee", "Stirling", "Inverness", "Aberdeen", "Falkirk"};
-
+/*
   static final String[] STATES = {"Alabama", "Florida", "California",
       "Hawaii", "Michigan", "Montana",
       "Nevada", "Texas", "Oregan", "Utah", "Kentucky", "Indiana"};
 
+
+ */
+  static final String[] STATES = {"Belgium"};
   static ArrayList<String> customWords;
 
   /**
@@ -59,12 +62,11 @@ public class Words {
    * @param wordSource the location of the word file
    * @return a random word from a user defined file
    */
-  public static String returnRandomWord(String wordSource) {
+  public static String returnRandomWord(String wordSource, GameOutput io) {
     String line;
     customWords = new ArrayList<String>();
 
     try {
-      //FileReader file = new FileReader(wordSource, "UTF-8");
       FileInputStream inputStream = new FileInputStream(wordSource);
       InputStreamReader file = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
       BufferedReader reader = new BufferedReader(file);
@@ -74,10 +76,12 @@ public class Words {
       reader.close();
       return customWords.get((int) (Math.random() * customWords.size()));
     } catch (FileNotFoundException e) {
-      System.out.println("File error");
+      //System.out.println("File error");
+      io.printFileError();
       return "FILE ERROR";
     } catch (IOException e) {
-      System.out.println("IO error");
+      //System.out.println("IO error");
+      io.printIoError();
       return "IO ERROR";
     }
   }

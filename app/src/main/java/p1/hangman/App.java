@@ -11,41 +11,33 @@ public class App {
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in, StandardCharsets.UTF_8);
     CommandOptions options = new CommandOptions(args);
-    startGame(input, options);
+    GameOutput gameOutput = new GameOutput(System.in, System.out);
+
+    startGame(input, options, gameOutput);
   }
 
   /**
    * Starts the game.
    *
-   * @param input  the user input
-   * @param options  the command line options
+   * @param input   the user input
+   * @param options the command line options
    */
-  static void startGame(Scanner input, CommandOptions options) {
-    printOptions();
+  static void startGame(Scanner input, CommandOptions options, GameOutput io) {
+    io.printMenuOptions();
+
     GameState gameState;
     int maxGuesses = options.getMaxGuesses();
     int maxHints = options.getMaxHints();
     String wordSource = options.getWordSource();
+
     if (wordSource.equals("")) {
       int userInput = returnValidInput(input);
 
       gameState = new GameState(Words.returnRandomWord(userInput), maxGuesses, maxHints);
     } else {
-      gameState = new GameState(Words.returnRandomWord(wordSource), maxGuesses, maxHints);
+      gameState = new GameState(Words.returnRandomWord(wordSource, io), maxGuesses, maxHints);
     }
-    gameLoop(gameState);
-  }
-
-  public static void printOptions() {
-    System.out.print(
-            """
-                      1. Counties
-                      2. Countries
-                      3. Cities
-                      4. States
-
-                    Pick a category
-                    """);
+    gameLoop(gameState, io);
   }
 
   /**
@@ -53,8 +45,8 @@ public class App {
    * This means that the user must enter an integer.
    * The integer must correspond to a valid category.
    *
-   * @param input  the user input
-   * @return  valid integer entered by the user
+   * @param input the user input
+   * @return valid integer entered by the user
    */
   public static int returnValidInput(Scanner input) {
     int userInput;
@@ -75,19 +67,18 @@ public class App {
   /**
    * Queries the user's guess and runs the game loop.
    *
-   * @param gameState  the state of the game
+   * @param gameState the state of the game
    */
-  public static void gameLoop(GameState gameState) {
+  public static void gameLoop(GameState gameState, GameOutput io) {
     while (!gameState.won() && !gameState.lost()) {
-      gameState.showTargetWord();
-      System.out.println("Guesses remaining: " + gameState.guessesRemaining);
-      gameState.getGuess();
+      gameState.showTargetWord(io);
+      io.printGuessesRemaining(gameState);
+      gameState.getGuess(io);
     }
     if (gameState.won()) {
-      System.out.print("Well done!\nYou took " + gameState.guessesMade + " guess(es)\n");
-      System.out.println("The word was " + gameState.getTargetWord());
+      io.printWinMessage(gameState);
     } else {
-      System.out.print("You lost!\nThe word was " + gameState.targetWord + "\n");
+      io.printLoseMessage(gameState);
     }
   }
 }

@@ -1,8 +1,6 @@
 package p1.hangman;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Handles the variables and methods associated with the game state.
@@ -16,8 +14,6 @@ public class GameState {
   ArrayList<Character> correctLetters;
   int remainingLetters;
   ArrayList<Character> hintsGiven;
-
-  public Scanner sc = new Scanner(System.in, StandardCharsets.UTF_8).useDelimiter("\n");
 
   public GameState(String targetWord, int guessesRemaining, int hintsRemaining) {
     this.targetWord = targetWord;
@@ -33,7 +29,7 @@ public class GameState {
   /**
    * Displays the word that the user has to guess.
    */
-  public void showTargetWord() {
+  public void showTargetWord(GameOutput io) {
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < targetWord.length(); i++) {
       char correctChar = Character.toLowerCase(targetWord.charAt(i));
@@ -43,30 +39,28 @@ public class GameState {
         sb.append('-');
       }
     }
-    System.out.println(sb);
+    io.printTargetWord(sb.toString());
   }
 
   /**
    * Queries the user's guess.
    */
-  public void getGuess() {
+  public void getGuess(GameOutput io) {
     String userGuess;
+    io.printPrompt();
+    userGuess = io.nextLine();
 
-    System.out.print("Guess a letter or word (? for a hint): ");
-
-    userGuess = sc.nextLine();
     if (userGuess.isBlank()) {
-      System.out.println("Please enter a guess: ");
+      io.printBlankInput();
     } else {
       char letter = Character.toLowerCase(userGuess.charAt(0));
       boolean guessCorrect = false;
-
       if (userGuess.length() > 1) {
-        guessWord(userGuess, guessCorrect);
+        guessWord(userGuess, guessCorrect, io);
       } else if (letter == '?') {
-        giveHint();
+        giveHint(io);
       } else {
-        guessLetter(letter, guessCorrect);
+        guessLetter(letter, guessCorrect, io);
       }
     }
   }
@@ -76,16 +70,16 @@ public class GameState {
    * The hint will be a letter that the user has not already guessed and,
    * a letter that has not previously been given as a hint.
    */
-  private void giveHint() {
+  private void giveHint(GameOutput io) {
     if (hintsRemaining == 0) {
-      System.out.println("No more hints allowed");
+      io.printNoHints();
     } else {
       int randomNum = (int) (Math.random() * targetWord.length());
       char hint = Character.toLowerCase(targetWord.charAt(randomNum));
       while (hintsGiven.contains(hint) || correctLetters.contains(hint)) {
         hint = targetWord.charAt((int) (Math.random() * targetWord.length()));
       }
-      System.out.println("Try: " + hint);
+      io.printHint(hint);
       hintsGiven.add(hint);
       hintsRemaining--;
     }
@@ -97,12 +91,12 @@ public class GameState {
    * @param userGuess  the user's guess
    * @param guessCorrect  whether the user's guess is correct
    */
-  private void guessWord(String userGuess, boolean guessCorrect) {
+  private void guessWord(String userGuess, boolean guessCorrect, GameOutput io) {
     if (userGuess.equalsIgnoreCase(targetWord)) {
       remainingLetters = 0;
       guessCorrect = true;
     }
-    printFeedback(guessCorrect);
+    io.printFeedback(guessCorrect);
     updateGuesses();
   }
 
@@ -112,9 +106,12 @@ public class GameState {
    * @param userGuess  the user's guess
    * @param guessCorrect  whether the user's guess is correct
    */
-  public void guessLetter(char userGuess, boolean guessCorrect) {
+  public void guessLetter(char userGuess, boolean guessCorrect, GameOutput io) {
     for (int i = 0; i < targetWord.length(); i++) {
-      if (targetWord.charAt(i) == userGuess && !correctLetters.contains(userGuess)) {
+      boolean guessIsCorrect = Character.toLowerCase(targetWord.charAt(i)) == userGuess;
+      boolean alreadyGuessed = correctLetters.contains(userGuess);
+
+      if (guessIsCorrect && !alreadyGuessed) {
         final ArrayList<Integer> occurrences = findOccurrences(userGuess, targetWord);
         guessCorrect = true;
         correctLetters.add(userGuess);
@@ -123,7 +120,7 @@ public class GameState {
         }
       }
     }
-    printFeedback(guessCorrect);
+    io.printFeedback(guessCorrect);
     updateGuesses();
   }
 
@@ -149,14 +146,6 @@ public class GameState {
   private void updateGuesses() {
     guessesMade++;
     guessesRemaining--;
-  }
-
-  private void printFeedback(boolean guessCorrect) {
-    if (guessCorrect) {
-      System.out.println("Good guess!");
-    } else {
-      System.out.println("Wrong guess!");
-    }
   }
 
   public boolean won() {
