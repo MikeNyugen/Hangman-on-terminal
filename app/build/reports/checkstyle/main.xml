@@ -6,8 +6,8 @@
 <file name="/Users/mikenguyen/p1-hangman/app/src/main/java/p1/hangman/CommandOptions.java">
 </file>
 <file name="/Users/mikenguyen/p1-hangman/app/src/main/java/p1/hangman/GameOutput.java">
-<error line="26" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
-<error line="61" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="27" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="77" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
 <file name="/Users/mikenguyen/p1-hangman/app/src/main/java/p1/hangman/GameState.java">
 <error line="18" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>

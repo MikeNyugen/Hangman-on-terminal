@@ -22,8 +22,8 @@ public class App {
    * @param input   the user input
    * @param options the command line options
    */
-  static void startGame(Scanner input, CommandOptions options, GameOutput io) {
-    io.printMenuOptions();
+  static void startGame(Scanner input, CommandOptions options, GameOutput output) {
+    output.printMenuOptions();
 
     GameState gameState;
     int maxGuesses = options.getMaxGuesses();
@@ -35,9 +35,9 @@ public class App {
 
       gameState = new GameState(Words.returnRandomWord(userInput), maxGuesses, maxHints);
     } else {
-      gameState = new GameState(Words.returnRandomWord(wordSource, io), maxGuesses, maxHints);
+      gameState = new GameState(Words.returnRandomWord(wordSource, output), maxGuesses, maxHints);
     }
-    gameLoop(gameState, io);
+    gameLoop(gameState, output);
   }
 
   /**
@@ -69,16 +69,16 @@ public class App {
    *
    * @param gameState the state of the game
    */
-  public static void gameLoop(GameState gameState, GameOutput io) {
+  public static void gameLoop(GameState gameState, GameOutput output) {
     while (!gameState.won() && !gameState.lost()) {
-      io.showTargetWord(gameState);
-      io.printGuessesRemaining(gameState);
-      gameState.getGuess(io);
+      output.showTargetWord(gameState);
+      output.printGuessesRemaining(gameState);
+      gameState.getGuess(output);
     }
     if (gameState.won()) {
-      io.printWinMessage(gameState);
+      output.printWinMessage(gameState);
     } else {
-      io.printLoseMessage(gameState);
+      output.printLoseMessage(gameState);
     }
   }
 }

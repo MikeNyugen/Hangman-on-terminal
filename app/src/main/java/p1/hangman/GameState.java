@@ -12,8 +12,8 @@ public class GameState {
   public int hintsRemaining;
 
   ArrayList<Character> correctLetters;
-  int remainingLetters;
   ArrayList<Character> hintsGiven;
+  int remainingLetters;
 
   public GameState(String targetWord, int guessesRemaining, int hintsRemaining) {
     this.targetWord = targetWord;
@@ -26,27 +26,25 @@ public class GameState {
     hintsGiven = new ArrayList<>();
   }
 
-
-
   /**
    * Queries the user's guess.
    */
-  public void getGuess(GameOutput io) {
+  public void getGuess(GameOutput output) {
     String userGuess;
-    io.printPrompt();
-    userGuess = io.nextLine();
+    output.printPrompt();
+    userGuess = output.nextLine();
 
     if (userGuess.isBlank()) {
-      io.printBlankInput();
+      output.printBlankInput();
     } else {
       char letter = Character.toLowerCase(userGuess.charAt(0));
       boolean guessCorrect = false;
       if (userGuess.length() > 1) {
-        guessWord(userGuess, guessCorrect, io);
+        guessWord(userGuess, guessCorrect, output);
       } else if (letter == '?') {
-        giveHint(io);
+        giveHint(output);
       } else {
-        guessLetter(letter, guessCorrect, io);
+        guessLetter(letter, guessCorrect, output);
       }
     }
   }
@@ -56,16 +54,16 @@ public class GameState {
    * The hint will be a letter that the user has not already guessed and,
    * a letter that has not previously been given as a hint.
    */
-  private void giveHint(GameOutput io) {
+  public void giveHint(GameOutput output) {
     if (hintsRemaining == 0) {
-      io.printNoHints();
+      output.printNoHints();
     } else {
       int randomNum = (int) (Math.random() * targetWord.length());
       char hint = Character.toLowerCase(targetWord.charAt(randomNum));
       while (hintsGiven.contains(hint) || correctLetters.contains(hint)) {
         hint = targetWord.charAt((int) (Math.random() * targetWord.length()));
       }
-      io.printHint(hint);
+      output.printHint(hint);
       hintsGiven.add(hint);
       hintsRemaining--;
     }
@@ -77,12 +75,12 @@ public class GameState {
    * @param userGuess  the user's guess
    * @param guessCorrect  whether the user's guess is correct
    */
-  private void guessWord(String userGuess, boolean guessCorrect, GameOutput io) {
+  private void guessWord(String userGuess, boolean guessCorrect, GameOutput output) {
     if (userGuess.equalsIgnoreCase(targetWord)) {
       remainingLetters = 0;
       guessCorrect = true;
     }
-    io.printFeedback(guessCorrect);
+    output.printFeedback(guessCorrect);
     updateGuesses();
   }
 
@@ -92,7 +90,7 @@ public class GameState {
    * @param userGuess  the user's guess
    * @param guessCorrect  whether the user's guess is correct
    */
-  public void guessLetter(char userGuess, boolean guessCorrect, GameOutput io) {
+  public void guessLetter(char userGuess, boolean guessCorrect, GameOutput output) {
     for (int i = 0; i < targetWord.length(); i++) {
       boolean guessIsCorrect = Character.toLowerCase(targetWord.charAt(i)) == userGuess;
       boolean alreadyGuessed = correctLetters.contains(userGuess);
@@ -106,7 +104,7 @@ public class GameState {
         }
       }
     }
-    io.printFeedback(guessCorrect);
+    output.printFeedback(guessCorrect);
     updateGuesses();
   }
 
@@ -118,15 +116,15 @@ public class GameState {
    * @return  arrayList containing the index positions of all occurrences
    */
   public ArrayList<Integer> findOccurrences(char letter, String targetWord) {
-    ArrayList<Integer> output = new ArrayList<>();
+    ArrayList<Integer> occurrences = new ArrayList<>();
     String lowerCaseWord = targetWord.toLowerCase();
     int index = lowerCaseWord.indexOf(letter);
 
     while (index >= 0) {
-      output.add(index);
+      occurrences.add(index);
       index = targetWord.indexOf(letter, index + 1);
     }
-    return output;
+    return occurrences;
   }
 
   private void updateGuesses() {
@@ -148,5 +146,9 @@ public class GameState {
 
   public ArrayList<Character> getCorrectLetters() {
     return correctLetters;
+  }
+
+  public ArrayList<Character> getHintsGiven() {
+    return hintsGiven;
   }
 }

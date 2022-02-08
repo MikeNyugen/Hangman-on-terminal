@@ -62,7 +62,7 @@ public class Words {
    * @param wordSource the location of the word file
    * @return a random word from a user defined file
    */
-  public static String returnRandomWord(String wordSource, GameOutput io) {
+  public static String returnRandomWord(String wordSource, GameOutput output) {
     String line;
     customWords = new ArrayList<String>();
 
@@ -77,11 +77,11 @@ public class Words {
       return customWords.get((int) (Math.random() * customWords.size()));
     } catch (FileNotFoundException e) {
       //System.out.println("File error");
-      io.printFileError();
+      output.printFileError();
       return "FILE ERROR";
     } catch (IOException e) {
       //System.out.println("IO error");
-      io.printIoError();
+      output.printIoError();
       return "IO ERROR";
     }
   }
