@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -46,8 +47,23 @@ public class GameOutput {
     output.println("INCORRECT CATEGORY");
   }
 
-  public void printTargetWord(String targetWord) {
-    output.println(targetWord);
+  /**
+   * Displays the word that the user has to guess.
+   */
+  public void showTargetWord(GameState gameState) {
+    StringBuilder sb = new StringBuilder();
+    String targetWord = gameState.getTargetWord();
+    ArrayList<Character> correctLetters = gameState.getCorrectLetters();
+
+    for (int i = 0; i < targetWord.length(); i++) {
+      char correctChar = Character.toLowerCase(targetWord.charAt(i));
+      if (correctLetters.contains(correctChar)) {
+        sb.append(targetWord.charAt(i));
+      } else {
+        sb.append('-');
+      }
+    }
+    output.println(sb);
   }
 
   public void printNoHints() {

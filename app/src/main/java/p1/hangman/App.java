@@ -71,7 +71,7 @@ public class App {
    */
   public static void gameLoop(GameState gameState, GameOutput io) {
     while (!gameState.won() && !gameState.lost()) {
-      gameState.showTargetWord(io);
+      io.showTargetWord(gameState);
       io.printGuessesRemaining(gameState);
       gameState.getGuess(io);
     }

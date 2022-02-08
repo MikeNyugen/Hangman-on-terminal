@@ -26,21 +26,7 @@ public class GameState {
     hintsGiven = new ArrayList<>();
   }
 
-  /**
-   * Displays the word that the user has to guess.
-   */
-  public void showTargetWord(GameOutput io) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < targetWord.length(); i++) {
-      char correctChar = Character.toLowerCase(targetWord.charAt(i));
-      if (correctLetters.contains(correctChar)) {
-        sb.append(targetWord.charAt(i));
-      } else {
-        sb.append('-');
-      }
-    }
-    io.printTargetWord(sb.toString());
-  }
+
 
   /**
    * Queries the user's guess.
@@ -158,5 +144,9 @@ public class GameState {
 
   public String getTargetWord() {
     return targetWord;
+  }
+
+  public ArrayList<Character> getCorrectLetters() {
+    return correctLetters;
   }
 }
