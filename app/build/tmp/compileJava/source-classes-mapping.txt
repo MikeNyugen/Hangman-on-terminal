@@ -2,9 +2,9 @@ p1/hangman/CommandOptions.java
  p1.hangman.CommandOptions
 p1/hangman/GameOutput.java
  p1.hangman.GameOutput
-p1/hangman/Words.java
- p1.hangman.Words
 p1/hangman/GameState.java
  p1.hangman.GameState
+p1/hangman/Words.java
+ p1.hangman.Words
 p1/hangman/App.java
  p1.hangman.App

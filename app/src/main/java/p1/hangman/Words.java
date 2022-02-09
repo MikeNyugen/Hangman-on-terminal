@@ -23,14 +23,11 @@ public class Words {
 
   static final String[] CITIES = {"St Andrews", "Edinburgh", "Glasgow", "Kirkcaldy", "Perth",
       "Dundee", "Stirling", "Inverness", "Aberdeen", "Falkirk"};
-/*
+
   static final String[] STATES = {"Alabama", "Florida", "California",
       "Hawaii", "Michigan", "Montana",
       "Nevada", "Texas", "Oregan", "Utah", "Kentucky", "Indiana"};
 
-
- */
-  static final String[] STATES = {"Belgium"};
   static ArrayList<String> customWords;
 
   /**

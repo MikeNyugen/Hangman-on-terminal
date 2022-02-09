@@ -23,7 +23,7 @@ public class App {
    * @param input   the user input
    * @param options the command line options
    */
-  static void startGame(Scanner input, CommandOptions options, GameOutput output) {
+  public static void startGame(Scanner input, CommandOptions options, GameOutput output) {
     output.printMenuOptions();
 
     GameState gameState;

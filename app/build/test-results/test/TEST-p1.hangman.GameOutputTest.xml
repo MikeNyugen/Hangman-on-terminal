@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="p1.hangman.GameOutputTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2022-02-09T16:16:27" hostname="8afbdf84.st-andrews.ac.uk" time="0.645">
+<testsuite name="p1.hangman.GameOutputTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2022-02-09T17:09:31" hostname="8afbdf84.st-andrews.ac.uk" time="0.451">
   <properties/>
-  <testcase name="guessesRemainingTest" classname="p1.hangman.GameOutputTest" time="0.622"/>
-  <testcase name="ioErrorTest" classname="p1.hangman.GameOutputTest" time="0.001"/>
-  <testcase name="feedbackTest" classname="p1.hangman.GameOutputTest" time="0.001"/>
+  <testcase name="guessesRemainingTest" classname="p1.hangman.GameOutputTest" time="0.436"/>
+  <testcase name="ioErrorTest" classname="p1.hangman.GameOutputTest" time="0.0"/>
+  <testcase name="feedbackTest" classname="p1.hangman.GameOutputTest" time="0.0"/>
   <testcase name="hintTest" classname="p1.hangman.GameOutputTest" time="0.001"/>
-  <testcase name="menuOptionsTest" classname="p1.hangman.GameOutputTest" time="0.001"/>
+  <testcase name="menuOptionsTest" classname="p1.hangman.GameOutputTest" time="0.0"/>
   <testcase name="noHintsTest" classname="p1.hangman.GameOutputTest" time="0.001"/>
-  <testcase name="fileErrorTest" classname="p1.hangman.GameOutputTest" time="0.001"/>
-  <testcase name="showTargetWordTest" classname="p1.hangman.GameOutputTest" time="0.004"/>
-  <testcase name="loseMessageTest" classname="p1.hangman.GameOutputTest" time="0.008"/>
-  <testcase name="winMessageTest" classname="p1.hangman.GameOutputTest" time="0.005"/>
+  <testcase name="fileErrorTest" classname="p1.hangman.GameOutputTest" time="0.0"/>
+  <testcase name="showTargetWordTest" classname="p1.hangman.GameOutputTest" time="0.002"/>
+  <testcase name="loseMessageTest" classname="p1.hangman.GameOutputTest" time="0.003"/>
+  <testcase name="winMessageTest" classname="p1.hangman.GameOutputTest" time="0.006"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

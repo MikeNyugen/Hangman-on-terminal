@@ -3,7 +3,7 @@ package p1.hangman;
 import java.util.ArrayList;
 
 /**
- * Handles the variables and methods associated with the game state.
+ * Handles the interactions associated with the game state.
  */
 public class GameState {
   private String targetWord;

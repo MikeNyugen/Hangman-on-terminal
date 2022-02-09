@@ -1,15 +1,17 @@
 package p1.hangman;
 
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-
 
 public class GameStateTest {
   GameState gameState;
@@ -22,19 +24,15 @@ public class GameStateTest {
     GameOutput gameOutput = mock(GameOutput.class);
     String targetWord = "Alabama";
     gameState = new GameState(targetWord, 10, 2);
-    ArrayList<Character> correctLetters = gameState.getCorrectLetters();
-    ArrayList<Character> hintsGiven = gameState.getHintsGiven();
 
     // test hint is valid
     gameState.giveHint(gameOutput);
-    char hint = gameState.getHintsGiven().get(0);
     String hintString = gameState.getHintsGiven().get(0).toString();
     assertTrue(targetWord.contains(hintString)); // hint should be in the target word
 
     // test hint not already given or guessed
     String targetWord2 = "Italy";
     gameState2 = new GameState(targetWord2, 10, 3);
-    ArrayList<Character> correctLetters2 = gameState2.getCorrectLetters();
     gameState2.addCorrectLetter('i');
     gameState2.addCorrectLetter('t');
     gameState2.addCorrectLetter('a');
@@ -43,7 +41,7 @@ public class GameStateTest {
     gameState2.giveHint(gameOutput);
     char hint2 = gameState2.getHintsGiven().get(0);
     assertEquals('y', hint2);
-    assertFalse(correctLetters2.contains(hint2));
+    assertFalse(gameState2.getCorrectLetters().contains(hint2));
 
     // test no hints remaining
     gameState.setHintsRemaining(0);
@@ -130,22 +128,22 @@ public class GameStateTest {
 
     String hawaii = "Hawaii";
     // 'i' test
-    ArrayList<Integer> iIndexes = new ArrayList<>(Arrays.asList(4, 5));
-    assertEquals(iIndexes, gameState.findOccurrences('i', hawaii));
+    ArrayList<Integer> output1 = new ArrayList<>(Arrays.asList(4, 5));
+    assertEquals(output1, gameState.findOccurrences('i', hawaii));
     // 'a' test
-    ArrayList<Integer> aIndexes = new ArrayList<>(Arrays.asList(1, 3));
-    assertEquals(aIndexes, gameState.findOccurrences('a', hawaii));
+    ArrayList<Integer> output2 = new ArrayList<>(Arrays.asList(1, 3));
+    assertEquals(output2, gameState.findOccurrences('a', hawaii));
     // no occurrence test
     ArrayList<Integer> noOccurrence = new ArrayList<>(List.of());
     assertEquals(noOccurrence, gameState.findOccurrences('x', hawaii));
 
     String aberdeen = "Aberdeen";
     // 'e' test
-    ArrayList<Integer> eIndexes = new ArrayList<>(Arrays.asList(2, 5, 6));
-    assertEquals(eIndexes, gameState.findOccurrences('e', aberdeen));
+    ArrayList<Integer> output3 = new ArrayList<>(Arrays.asList(2, 5, 6));
+    assertEquals(output3, gameState.findOccurrences('e', aberdeen));
     // 'd' test
-    ArrayList<Integer> dIndexes = new ArrayList<>(List.of(4));
-    assertEquals(dIndexes, gameState.findOccurrences('d', aberdeen));
+    ArrayList<Integer> output4 = new ArrayList<>(List.of(4));
+    assertEquals(output4, gameState.findOccurrences('d', aberdeen));
 
     // empty word test
     String emptyString = "";

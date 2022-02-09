@@ -1,15 +1,18 @@
 package p1.hangman;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * Test class for the game output.
+ */
 public class GameOutputTest {
   GameOutput gameOutput;
   ByteArrayOutputStream out;
@@ -23,12 +26,11 @@ public class GameOutputTest {
 
   @Test
   public void menuOptionsTest() {
-    String expected = "  1. Counties\n" +
-            "  2. Countries\n" +
-            "  3. Cities\n" +
-            "  4. States\n" +
-
-            "Pick a category: ";
+    String expected = "  1. Counties\n"
+            + "  2. Countries\n"
+            + "  3. Cities\n"
+            + "  4. States\n"
+            + "Pick a category: ";
     gameOutput.printMenuOptions();
     assertEquals(expected, out.toString());
   }
@@ -79,14 +81,13 @@ public class GameOutputTest {
   public void feedbackTest() {
     boolean correctGuess = true;
     String expectedCorrect = "Good guess!\n";
-    String expectedWrong = "Wrong guess!\n";
-
     gameOutput.printFeedback(correctGuess);
     assertEquals(expectedCorrect, out.toString());
 
     out.reset();
 
     correctGuess = false;
+    String expectedWrong = "Wrong guess!\n";
     gameOutput.printFeedback(correctGuess);
     assertEquals(expectedWrong, out.toString());
   }
