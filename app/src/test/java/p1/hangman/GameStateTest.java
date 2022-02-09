@@ -2,11 +2,11 @@ package p1.hangman;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 
@@ -21,7 +21,7 @@ public class GameStateTest {
 
   @Test
   public void giveHintValidTest() {
-    GameOutput gameOutput = Mockito.mock(GameOutput.class);
+    GameOutput gameOutput = mock(GameOutput.class);
     String targetWord = "Alabama";
     gameState = new GameState(targetWord, 10, 2);
     ArrayList<Character> correctLetters = gameState.getCorrectLetters();
@@ -45,9 +45,9 @@ public class GameStateTest {
 
     gameState2.giveHint(gameOutput);
     char hint2 = gameState2.getHintsGiven().get(0);
-    verify(gameOutput).printHint(hint); // hint should be printed
-    assertFalse(correctLetters2.contains(hint2));
+    verify(gameOutput).printHint(hint2); // hint should be printed
     assertEquals('y', hint2);
+    assertFalse(correctLetters2.contains(hint2));
 
     // test no hints remaining
     gameState.setHintsRemaining(0);
@@ -62,10 +62,23 @@ public class GameStateTest {
 
   @Test
   public void guessWordTest() {
-    // test user guesses word correctly and wins game
+    String targetWord = "Belgium";
+    String targetWord2 = "France";
+    GameState gameState = new GameState(targetWord, 10, 2);
+    GameState gameState2 = new GameState(targetWord2, 10, 2);
+    GameOutput gameOutput = mock(GameOutput.class);
+
+    // test user guesses word correctly
+    gameState.guessWord(targetWord, false, gameOutput);
+    assertEquals(0, gameState.getRemainingLetters());
+    verify(gameOutput).printFeedback(true);
 
     // test user guesses word wrong
-
+    gameState2.guessWord("Germany", false, gameOutput);
+    int expectedRemainingLetters = targetWord2.length();
+    int actualRemainingLetters = gameState2.getRemainingLetters();
+    assertEquals(expectedRemainingLetters, actualRemainingLetters);
+    verify(gameOutput).printFeedback(false);
   }
 
   @Test

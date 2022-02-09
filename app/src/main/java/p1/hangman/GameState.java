@@ -60,10 +60,10 @@ public class GameState {
       int randomNum = (int) (Math.random() * targetWord.length());
       char hint = Character.toLowerCase(targetWord.charAt(randomNum));
       while (hintsGiven.contains(hint) || correctLetters.contains(hint)) {
-        hint = targetWord.charAt((int) (Math.random() * targetWord.length()));
+        hint = Character.toLowerCase(targetWord.charAt((int) (Math.random() * targetWord.length())));
       }
       output.printHint(hint);
-      hintsGiven.add(Character.toLowerCase(hint));
+      hintsGiven.add(hint);
       hintsRemaining--;
     }
   }
@@ -137,6 +137,10 @@ public class GameState {
 
   public boolean lost() {
     return remainingLetters > 0 && guessesRemaining == 0;
+  }
+
+  public int getRemainingLetters() {
+    return remainingLetters;
   }
 
   public String getTargetWord() {
