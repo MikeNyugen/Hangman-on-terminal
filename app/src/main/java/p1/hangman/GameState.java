@@ -6,14 +6,14 @@ import java.util.ArrayList;
  * Handles the variables and methods associated with the game state.
  */
 public class GameState {
-  public String targetWord;
-  public int guessesMade;
-  public int guessesRemaining;
-  public int hintsRemaining;
+  private String targetWord;
+  private int guessesMade;
+  private int guessesRemaining;
+  private int hintsRemaining;
 
-  ArrayList<Character> correctLetters;
-  ArrayList<Character> hintsGiven;
-  int remainingLetters;
+  private ArrayList<Character> correctLetters;
+  private ArrayList<Character> hintsGiven;
+  private int remainingLetters;
 
   public GameState(String targetWord, int guessesRemaining, int hintsRemaining) {
     this.targetWord = targetWord;

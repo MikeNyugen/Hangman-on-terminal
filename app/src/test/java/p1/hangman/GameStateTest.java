@@ -1,6 +1,5 @@
 package p1.hangman;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,12 +13,9 @@ import static org.mockito.Mockito.verify;
 
 public class GameStateTest {
   GameState gameState;
-  GameState gameStateMock;
-
-  @Before
-  public void setup() {
-
-  }
+  GameState gameState2;
+  GameState gameState3;
+  GameState gameState4;
 
   @Test
   public void giveHintValidTest() {
@@ -31,13 +27,13 @@ public class GameStateTest {
 
     // test hint is valid
     gameState.giveHint(gameOutput);
-    char hint = gameState.hintsGiven.get(0);
-    String hintString = gameState.hintsGiven.get(0).toString();
+    char hint = gameState.getHintsGiven().get(0);
+    String hintString = gameState.getHintsGiven().get(0).toString();
     assertTrue(targetWord.contains(hintString)); // hint should be in the target word
 
     // test hint not already given or guessed
     String targetWord2 = "Italy";
-    GameState gameState2 = new GameState(targetWord2, 10, 3);
+    gameState2 = new GameState(targetWord2, 10, 3);
     ArrayList<Character> correctLetters2 = gameState2.getCorrectLetters();
     gameState2.addCorrectLetter('i');
     gameState2.addCorrectLetter('t');
@@ -63,8 +59,8 @@ public class GameStateTest {
   public void guessWordTest() {
     String targetWord = "Belgium";
     String targetWord2 = "France";
-    GameState gameState = new GameState(targetWord, 10, 2);
-    GameState gameState2 = new GameState(targetWord2, 10, 2);
+    gameState = new GameState(targetWord, 10, 2);
+    gameState2 = new GameState(targetWord2, 10, 2);
     GameOutput gameOutput = mock(GameOutput.class);
 
     // test user guesses word correctly
@@ -82,7 +78,7 @@ public class GameStateTest {
   public void guessLetterTest() {
     GameOutput gameOutput = mock(GameOutput.class);
     String targetWord = "Scotland";
-    GameState gameState = new GameState(targetWord, 10, 2);
+    gameState = new GameState(targetWord, 10, 2);
 
     // test user guesses letter correctly
     gameState.guessLetter('s', gameOutput);
@@ -94,14 +90,13 @@ public class GameStateTest {
 
     // test user guesses letter incorrectly
     String targetWord2 = "England";
-    GameState gameState2 = new GameState(targetWord2, 10, 2);
+    gameState2 = new GameState(targetWord2, 10, 2);
     gameState2.guessLetter('m', gameOutput);
 
     assertEquals(0, gameState2.getCorrectLetters().size());
     assertEquals(8, targetWord.length());
 
     // test user guesses final letter and wins game
-    ArrayList<Character> correctLetters = gameState2.getCorrectLetters();
     gameState2.addCorrectLetter('e');
     gameState2.addCorrectLetter('n');
     gameState2.addCorrectLetter('g');
@@ -115,14 +110,14 @@ public class GameStateTest {
 
     // test user runs out of guesses and loses game
     String targetWord3 = "Ireland";
-    GameState gameState3 = new GameState(targetWord3, 1, 2);
+    gameState3 = new GameState(targetWord3, 1, 2);
     gameState3.guessLetter('p', gameOutput);
     assertEquals(0, gameState3.getGuessesRemaining());
     assertTrue(gameState3.lost());
 
     // test user guesses a non-letter
     String targetWord4 = "Greece";
-    GameState gameState4 = new GameState(targetWord4, 10, 2);
+    gameState4 = new GameState(targetWord4, 10, 2);
     gameState4.guessLetter('9', gameOutput);
 
     assertEquals(0, gameState4.getCorrectLetters().size());
@@ -131,7 +126,7 @@ public class GameStateTest {
 
   @Test
   public void findOccurrencesTest() {
-    GameState gameState = new GameState("word", 10, 2);
+    gameState = new GameState("word", 10, 2);
 
     String hawaii = "Hawaii";
     // 'i' test
@@ -161,7 +156,7 @@ public class GameStateTest {
 
   @Test
   public void updateGuessesTest() {
-    GameState gameState = new GameState("word", 10, 2);
+    gameState = new GameState("word", 10, 2);
     // after 1 guess
     gameState.updateGuesses();
     assertEquals(9, gameState.getGuessesRemaining());
@@ -170,7 +165,6 @@ public class GameStateTest {
     // after 3 guesses
     gameState.updateGuesses();
     gameState.updateGuesses();
-
     assertEquals(7, gameState.getGuessesRemaining());
     assertEquals(3, gameState.getGuessesMade());
   }

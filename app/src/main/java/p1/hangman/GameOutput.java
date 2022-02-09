@@ -79,16 +79,18 @@ public class GameOutput {
   }
 
   public void printGuessesRemaining(GameState gameState) {
-    output.println("Guesses remaining: " + gameState.guessesRemaining);
+    output.println("Guesses remaining: " + gameState.getGuessesRemaining());
   }
 
   public void printWinMessage(GameState gameState) {
-    output.println("Well done!\nYou took " + gameState.guessesMade + " guess(es)");
+    output.println("Well done!\nYou took " + gameState.getGuessesMade() + " guess(es)");
     output.println("The word was " + gameState.getTargetWord());
+    output.flush();
   }
 
   public void printLoseMessage(GameState gameState) {
-    output.println("You lost!\nThe word was " + gameState.targetWord + "\n");
+    output.println("You lost!\nThe word was " + gameState.getTargetWord());
+    output.flush();
   }
 
   public void printFileError() {
