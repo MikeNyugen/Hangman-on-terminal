@@ -1,6 +1,7 @@
 package p1.hangman;
 
 import java.nio.charset.StandardCharsets;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -56,7 +57,7 @@ public class App {
         System.out.println("INCORRECT CATEGORY");
         userInput = input.nextInt();
       }
-    } catch (Exception e) {
+    } catch (InputMismatchException e) {
       System.out.println("INCORRECT CATEGORY");
       input.nextLine();
       userInput = returnValidInput(input);

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * This class is responsible for all Output operations.
+ * This class is responsible for all output operations.
  */
 public class GameOutput {
 
@@ -25,14 +25,14 @@ public class GameOutput {
   }
 
   public void printMenuOptions() {
-    output.println(
-              "1. Counties\n" +
-              "2. Countries\n" +
-              "3. Cities\n" +
-              "4. States\n" +
+    output.print(
+            "  1. Counties\n" +
+                    "  2. Countries\n" +
+                    "  3. Cities\n" +
+                    "  4. States\n" +
 
-            "Pick a category: "
-            );
+                    "Pick a category: "
+    );
   }
 
   public void printPrompt() {
@@ -42,7 +42,7 @@ public class GameOutput {
   public void printBlankInput() {
     output.println("Please enter a guess: ");
   }
-  
+
   /**
    * Displays the word that the user has to guess.
    */

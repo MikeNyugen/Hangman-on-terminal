@@ -25,7 +25,7 @@ public class CommandOptions {
    * --guesses integer --hints integer wordSource
    * Default values will be used if no arguments specified
    *
-   * @param args  the command line arguments
+   * @param args the command line arguments
    */
   private void processArguments(String[] args) {
     for (int i = 0; i < args.length; ++i) {
@@ -64,5 +64,4 @@ public class CommandOptions {
   public void setWordSource(String wordSource) {
     this.wordSource = wordSource;
   }
-
 }

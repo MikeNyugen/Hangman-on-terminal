@@ -30,9 +30,8 @@ public class GameState {
    * Queries the user's guess.
    */
   public void getGuess(GameOutput output) {
-    String userGuess;
     output.printPrompt();
-    userGuess = output.nextLine();
+    String userGuess = output.nextLine();
 
     if (userGuess.isBlank()) {
       output.printBlankInput();
@@ -64,7 +63,7 @@ public class GameState {
         hint = targetWord.charAt((int) (Math.random() * targetWord.length()));
       }
       output.printHint(hint);
-      hintsGiven.add(hint);
+      hintsGiven.add(Character.toLowerCase(hint));
       hintsRemaining--;
     }
   }
@@ -72,10 +71,10 @@ public class GameState {
   /**
    * Handles the logic when the user attempts to guess the word.
    *
-   * @param userGuess  the user's guess
-   * @param guessCorrect  whether the user's guess is correct
+   * @param userGuess    the word that the user guessed
+   * @param guessCorrect whether the user's guess is correct
    */
-  private void guessWord(String userGuess, boolean guessCorrect, GameOutput output) {
+  public void guessWord(String userGuess, boolean guessCorrect, GameOutput output) {
     if (userGuess.equalsIgnoreCase(targetWord)) {
       remainingLetters = 0;
       guessCorrect = true;
@@ -87,8 +86,8 @@ public class GameState {
   /**
    * Handles the logic when the user attempts to guess a letter.
    *
-   * @param userGuess  the user's guess
-   * @param guessCorrect  whether the user's guess is correct
+   * @param userGuess    the letter that the use guessed
+   * @param guessCorrect whether the user's guess is correct
    */
   public void guessLetter(char userGuess, boolean guessCorrect, GameOutput output) {
     for (int i = 0; i < targetWord.length(); i++) {
@@ -111,9 +110,9 @@ public class GameState {
   /**
    * Finds the index position of occurrences of a letter in a given string.
    *
-   * @param letter  letter to be searched
-   * @param targetWord  word in which the letter is searched
-   * @return  arrayList containing the index positions of all occurrences
+   * @param letter     letter to be searched
+   * @param targetWord word in which the letter is searched
+   * @return arrayList containing the index positions of all occurrences
    */
   public ArrayList<Integer> findOccurrences(char letter, String targetWord) {
     ArrayList<Integer> occurrences = new ArrayList<>();
@@ -148,7 +147,19 @@ public class GameState {
     return correctLetters;
   }
 
+  public void addCorrectLetter(char letter) {
+    correctLetters.add(letter);
+  }
+
   public ArrayList<Character> getHintsGiven() {
     return hintsGiven;
+  }
+
+  public int getHintsRemaining() {
+    return hintsRemaining;
+  }
+
+  public void setHintsRemaining(int hintsRemaining) {
+    this.hintsRemaining = hintsRemaining;
   }
 }
