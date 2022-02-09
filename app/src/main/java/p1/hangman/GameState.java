@@ -37,13 +37,12 @@ public class GameState {
       output.printBlankInput();
     } else {
       char letter = Character.toLowerCase(userGuess.charAt(0));
-      boolean guessCorrect = false;
       if (userGuess.length() > 1) {
-        guessWord(userGuess, guessCorrect, output);
+        guessWord(userGuess, output);
       } else if (letter == '?') {
         giveHint(output);
       } else {
-        guessLetter(letter, guessCorrect, output);
+        guessLetter(letter, output);
       }
     }
   }
@@ -72,9 +71,10 @@ public class GameState {
    * Handles the logic when the user attempts to guess the word.
    *
    * @param userGuess    the word that the user guessed
-   * @param guessCorrect whether the user's guess is correct
+   * @param output  deals with io
    */
-  public void guessWord(String userGuess, boolean guessCorrect, GameOutput output) {
+  public void guessWord(String userGuess, GameOutput output) {
+    boolean guessCorrect = false;
     if (userGuess.equalsIgnoreCase(targetWord)) {
       remainingLetters = 0;
       guessCorrect = true;
@@ -87,9 +87,10 @@ public class GameState {
    * Handles the logic when the user attempts to guess a letter.
    *
    * @param userGuess    the letter that the use guessed
-   * @param guessCorrect whether the user's guess is correct
+   * @param output deals with io
    */
-  public void guessLetter(char userGuess, boolean guessCorrect, GameOutput output) {
+  public void guessLetter(char userGuess, GameOutput output) {
+    boolean guessCorrect = false;
     for (int i = 0; i < targetWord.length(); i++) {
       boolean guessIsCorrect = Character.toLowerCase(targetWord.charAt(i)) == userGuess;
       boolean alreadyGuessed = correctLetters.contains(userGuess);
@@ -126,7 +127,7 @@ public class GameState {
     return occurrences;
   }
 
-  private void updateGuesses() {
+  public void updateGuesses() {
     guessesMade++;
     guessesRemaining--;
   }
@@ -153,6 +154,7 @@ public class GameState {
 
   public void addCorrectLetter(char letter) {
     correctLetters.add(letter);
+    remainingLetters--;
   }
 
   public ArrayList<Character> getHintsGiven() {
@@ -165,5 +167,13 @@ public class GameState {
 
   public void setHintsRemaining(int hintsRemaining) {
     this.hintsRemaining = hintsRemaining;
+  }
+
+  public int getGuessesRemaining() {
+    return guessesRemaining;
+  }
+
+  public int getGuessesMade() {
+    return guessesMade;
   }
 }
